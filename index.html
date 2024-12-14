@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Çiçekella - Mobil Çiçekçi</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #808080; /* Gri arka plan */
+            color: black;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        header p {
+            font-size: 16px;
+            margin: 5px 0 0;
+        }
+
+        .flower-garden {
+            text-align: center;
+            font-size: 30px;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        #selected-city {
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 10px 0;
+            color: #333;
+        }
+
+        .menu {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            background-color: #000;
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .menu-bar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 250px;
+            background-color: #f2f2f2;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        .menu-bar ul {
+            list-style: none;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .menu-bar ul li {
+            margin: 10px 0;
+        }
+
+        .menu-bar ul li a {
+            text-decoration: none;
+            color: black; /* Link rengi siyah */
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .back-button {
+            display: block;
+            padding: 10px;
+            background-color: #000;
+            color: white;
+            text-align: center;
+            margin: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+        }
+
+        .gallery-item {
+            text-align: center;
+        }
+
+        .gallery img {
+            width: 150px;
+            height: 150px;
+            border-radius: 5px;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .gallery p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #000;
+            color: white;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="menu" onclick="toggleMenu()">
+        ☰
+    </div>
+
+    <div class="menu-bar" id="menuBar">
+        <a href="#" class="back-button" onclick="toggleMenu()">← Geri Dön</a>
+        <ul>
+            <script>
+                const cities = [
+                    'Adana', 'Adıyaman', 'Afyonkarahisar', 'Ağrı', 'Amasya', 'Ankara', 'Antalya', 'Artvin', 'Aydın', 'Balıkesir',
+                    'Bilecik', 'Bingöl', 'Bitlis', 'Bolu', 'Burdur', 'Bursa', 'Çanakkale', 'Çankırı', 'Çorum', 'Denizli',
+                    'Diyarbakır', 'Edirne', 'Elazığ', 'Erzincan', 'Erzurum', 'Eskişehir', 'Gaziantep', 'Giresun', 'Gümüşhane', 'Hakkâri',
+                    'Hatay', 'Iğdır', 'Isparta', 'İstanbul', 'İzmir', 'Kahramanmaraş', 'Karabük', 'Karaman', 'Kars', 'Kastamonu',
+                    'Kayseri', 'Kırıkkale', 'Kırklareli', 'Kırşehir', 'Kilis', 'Kocaeli', 'Konya', 'Kütahya', 'Malatya', 'Manisa',
+                    'Mardin', 'Mersin', 'Muğla', 'Muş', 'Nevşehir', 'Niğde', 'Ordu', 'Osmaniye', 'Rize', 'Sakarya',
+                    'Samsun', 'Siirt', 'Sinop', 'Sivas', 'Şanlıurfa', 'Şırnak', 'Tekirdağ', 'Tokat', 'Trabzon', 'Tunceli',
+                    'Uşak', 'Van', 'Yalova', 'Yozgat', 'Zonguldak'
+                ];
+                document.write(cities.map(city => `<li><a href="#" onclick="selectCity('${city}')">${city}</a></li>`).join(''));
+            </script>
+        </ul>
+    </div>
+
+    <header>
+        <div class="flower-garden">Çiçek Bahçesi</div>
+        <div id="selected-city"></div>
+        <h1>Size En Yakın 7/24 Çiçekçi</h1>
+        <p>30 ila 40 dakika arası kapınızda.<br>Çiçekella, Size En Yakın tüm ilçelerine 7/24 çiçek hizmeti sağlar.</p>
+    </header>
+
+    <div class="gallery">
+        <div class="gallery-item">
+            <img src="1.png" alt="Çiçek 1" onclick="sendWhatsApp('Çiçek 1 - 450 TL')">
+            <p>7 adet gül demeti 450 ₺</p>
+        </div>
+        <div class="gallery-item">
+            <img src="2.png" alt="Çiçek 2" onclick="sendWhatsApp('Çiçek 2 - 300 TL')">
+            <p>21’li Gül Demeti 650 TL</p>
+        </div>
+        <div class="gallery-item">
+            <img src="3.png" alt="Çiçek 3" onclick="sendWhatsApp('Çiçek 3 - 200 TL')">
+            <p>Kutuda 29 Gül Seti 700 TL</p>
+        </div>
+        <div class="gallery-item">
+            <img src="4.png" alt="Çiçek 4" onclick="sendWhatsApp('Çiçek 4 - 1000 TL')">
+            <p>Kabarcık Premium 690 TL</p>
+        </div>
+        <div class="gallery-item">
+            <img src="5.png" alt="Çiçek 5" onclick="sendWhatsApp('Çiçek 5 - 500 TL')">
+            <p>Seni Seviyorum Temalı,Yenilebilir 550 TL</p>
+        </div>
+        <div class="gallery-item">
+            <img src="6.png" alt="Çiçek 6" onclick="sendWhatsApp('Çiçek 6 - 600 TL')">
+            <p>Taze Meyve Sepeti 500 TL</p>
+        </div>
+        <div class="gallery-item">
+            <img src="7.png" alt="Çiçek 7" onclick="sendWhatsApp('Çiçek 7 - 100 TL')">
+            <p>100 Papatyalar İçinde Kırmızı Gül 500 TL</p>
+        </div>
+        <div class="gallery-item">
+            <img src="8.png" alt="Çiçek 8" onclick="sendWhatsApp('Çiçek 8 - 500 TL')">
+            <p>Mevsim Demeti 600 TL</p>
+        </div>
+        <div class="gallery-item">
+            <img src="10.png" alt="Çiçek 10" onclick="sendWhatsApp('Çiçek 10 - 712 TL')">
+            <p>Lina Demeti 580 TL</p
+
+        </div>
+    </div>
+
+    <footer>
+        Copyright © 2024 - 2025 Çiçekella | Tüm Hakları Saklıdır.
+iletisim@cicekbahcesi.com
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const menuBar = document.getElementById('menuBar');
+            if (menuBar.style.display === 'block') {
+                menuBar.style.display = 'none';
+            } else {
+                menuBar.style.display = 'block';
+            }
+        }
+
+        function sendWhatsApp(message) {
+            const phoneNumber = "905555555555"; // Buraya WhatsApp numaranızı yazın.
+            const url = `https://api.whatsapp.com/send?phone=${phoneNumber}&text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+
+        function selectCity(cityName) {
+            const selectedCity = document.getElementById('selected-city');
+            selectedCity.textContent = cityName;
+        }
+    </script>
+
+</body>
+</html>
